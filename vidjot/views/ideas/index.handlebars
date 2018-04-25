@@ -1,0 +1,11 @@
+{{#each ideas}}
+<div class="card card-body mb-3">
+  <h4>{{title}}</h4>
+  <p>{{details}}</p>
+  <div class="mt-5 text-right">
+    <a href="/ideas/edit/{{id}}" class="btn btn-sm btn-dark pl-4 pr-4">Edit</a>
+  </div>
+</div>
+{{else}}
+  <p>No video ideas listed</p>
+{{/each}}
