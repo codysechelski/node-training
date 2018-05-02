@@ -3,7 +3,11 @@
   <h4>{{title}}</h4>
   <p>{{details}}</p>
   <div class="mt-5 text-right">
-    <a href="/ideas/edit/{{id}}" class="btn btn-sm btn-dark pl-4 pr-4">Edit</a>
+    <a href="/ideas/edit/{{id}}" class="btn btn-sm btn-dark pl-4 pr-4 mr-2">Edit</a>
+    <form method="post" class="d-inline" action="/ideas/{{id}}?_method=DELETE">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" value="Delete" class="btn btn-sm btn-danger pl-4 pr-4">
+    </form>
   </div>
 </div>
 {{else}}
