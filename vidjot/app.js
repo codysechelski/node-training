@@ -5,6 +5,7 @@ const methodOverride = require('method-override');
 const flash          = require('connect-flash');
 const session        = require('express-session');
 const bodyParser     = require('body-parser');
+const passport       = require('passport');
 const mongoose       = require('mongoose');
 
 const app = express();
@@ -13,8 +14,11 @@ const app = express();
 const ideas = require('./routes/ideas');
 const users = require('./routes/users');
 
+//Passport config
+require('./config/passport')(passport);
+
 //connect to mongoose
-mongoose.connect('mongodb://localhost:27017/my_database')
+mongoose.connect('mongodb://localhost:27017/vidjot-dev')
   .then(() => console.log('db connected'))
   .catch(err => console.log(`Error Connecting to Mongoose: ${err}`));
 
@@ -43,6 +47,10 @@ app.use(session({
   saveUninitialized: true
 }))
 
+//Passport MMiddleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 //Flash Middleware
 app.use(flash());
 
@@ -51,6 +59,7 @@ app.use(function (req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
   next();
 });
 
